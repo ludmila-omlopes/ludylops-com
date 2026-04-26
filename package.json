@@ -1,0 +1,23 @@
+{
+  "name": "my-professional-page",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "clean": "node scripts/clean-next.mjs",
+    "dev": "node scripts/dev.mjs",
+    "dev:clean": "node scripts/dev.mjs",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^15.2.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.8.0"
+  }
+}

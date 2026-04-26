@@ -1,0 +1,90 @@
+/* Bold Minimal — black & white, huge type */
+
+:root {
+  --bg: #000;
+  --fg: #fff;
+  --font: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-space-grotesk), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--font);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+@keyframes livepulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.live-dot {
+  animation: livepulse 1.4s ease-in-out infinite;
+}
+
+@keyframes glitchJitter {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-1px, 1px);
+  }
+  40% {
+    transform: translate(2px, -1px);
+  }
+  60% {
+    transform: translate(-2px, 0);
+  }
+  80% {
+    transform: translate(1px, 2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.glitching {
+  animation: glitchJitter 0.12s steps(2) infinite;
+  text-shadow: 2px 0 0 rgba(255, 0, 80, 0.85), -2px 0 0 rgba(0, 220, 255, 0.85);
+}
+
+::selection {
+  background: var(--fg);
+  color: var(--bg);
+}
