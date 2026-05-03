@@ -7,7 +7,7 @@ import { SITE } from "@/lib/site";
 const ITEMS: Array<[string, string]> = [
   ["/stream", "Lives"],
   ["/build", "Projetos"],
-  ["/tinker", "Lab"],
+  ["/blog", "Blog"],
 ];
 
 export function TopMenu() {

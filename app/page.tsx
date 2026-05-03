@@ -105,11 +105,11 @@ export default function HomePage() {
             meta: "4 repositórios · MIT",
           },
           {
-            id: "/tinker",
+            id: "/blog",
             n: "03",
-            k: "Lab.",
-            d: "Impressões 3D, mods em portáteis, projetos com Pi e experimentos web3.",
-            meta: "14 textos",
+            k: "Blog.",
+            d: "Textos que ainda vou escrever sobre tech, jogos e experimentos.",
+            meta: "rascunhos",
           },
         ].map((s) => (
           <Link
