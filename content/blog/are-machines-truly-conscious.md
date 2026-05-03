@@ -9,7 +9,7 @@ date: 2023-05-10
 
 ![Abstract machine consciousness cover](https://storage.googleapis.com/papyrus_images/da1b41927af49b5824d6bd58b2b0f90f1c62069395a03520fc9f77f3e25ef53a.png)
 
-*Post originally published on Paragraph by [DeFinn](https://paragraph.com/@definn/are-machines-truly-conscious).*
+*Originalmente publicado por mim em inglês no [Paragraph](https://paragraph.com/@definn/are-machines-truly-conscious).*
 
 ---
 
