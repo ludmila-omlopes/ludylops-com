@@ -4,6 +4,22 @@ type MarkdownContentProps = {
   content: string;
 };
 
+type TweetData = {
+  name?: string;
+  handle?: string;
+  avatar?: string;
+  url?: string;
+  date?: string;
+  stats?: string;
+  media?: string[];
+  cardDomain?: string;
+  cardTitle?: string;
+  cardUrl?: string;
+  text: string;
+};
+
+const defaultTweetAvatar = "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png";
+
 function renderInline(text: string) {
   const parts: ReactNode[] = [];
   const pattern = /(\*\*\*[^*]+\*\*\*|\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\[([^\]]+)\]\(([^)]+)\))/g;
@@ -58,6 +74,231 @@ function renderInline(text: string) {
   }
 
   return parts.length > 0 ? parts : text;
+}
+
+function renderTweetText(text: string) {
+  const parts: ReactNode[] = [];
+  const pattern = /(@[A-Za-z0-9_]+|#[A-Za-z0-9_]+)/g;
+  let cursor = 0;
+  let partIndex = 0;
+
+  for (const match of text.matchAll(pattern)) {
+    const matchIndex = match.index ?? 0;
+    const token = match[0];
+
+    if (matchIndex > cursor) {
+      parts.push(text.slice(cursor, matchIndex));
+    }
+
+    parts.push(
+      <span key={`tweet-token-${partIndex}`} style={{ color: "#7756e3" }}>
+        {token}
+      </span>,
+    );
+
+    cursor = matchIndex + token.length;
+    partIndex += 1;
+  }
+
+  if (cursor < text.length) {
+    parts.push(text.slice(cursor));
+  }
+
+  return parts.length > 0 ? parts : text;
+}
+
+function parseTweetBlock(lines: string[]): TweetData {
+  const metadata: Record<string, string> = {};
+  const textLines: string[] = [];
+  let isText = false;
+
+  for (const line of lines) {
+    if (line.trim() === "text:") {
+      isText = true;
+      continue;
+    }
+
+    if (isText) {
+      textLines.push(line);
+      continue;
+    }
+
+    const match = line.match(/^([A-Za-z]+):\s*(.*)$/);
+
+    if (match) {
+      metadata[match[1]] = match[2];
+    }
+  }
+
+  return {
+    name: metadata.name,
+    handle: metadata.handle?.replace(/^@/, ""),
+    avatar: metadata.avatar,
+    url: metadata.url,
+    date: metadata.date,
+    stats: metadata.stats,
+    media: metadata.media
+      ?.split(",")
+      .map((item) => item.trim())
+      .filter(Boolean),
+    cardDomain: metadata.cardDomain,
+    cardTitle: metadata.cardTitle,
+    cardUrl: metadata.cardUrl,
+    text: textLines.join("\n").trim(),
+  };
+}
+
+function renderTweet(tweet: TweetData, key: string) {
+  const media = tweet.media ?? [];
+  const hasPreview = tweet.cardTitle || tweet.cardDomain || tweet.cardUrl;
+  const avatar = tweet.avatar || (tweet.handle ? `https://unavatar.io/twitter/${tweet.handle}` : defaultTweetAvatar);
+
+  return (
+    <article
+      key={key}
+      style={{
+        maxWidth: 550,
+        margin: "28px auto 30px",
+        padding: 16,
+        border: "1px solid rgba(54, 55, 55, 0.16)",
+        borderRadius: 12,
+        background: "#ffffff",
+        color: "#1f2933",
+        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+        boxShadow: "0 1px 0 rgba(54, 55, 55, 0.03)",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+        <img
+          src={avatar}
+          alt={tweet.name ? `${tweet.name} avatar` : "Tweet avatar"}
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: "50%",
+            objectFit: "cover",
+            border: "1px solid rgba(54, 55, 55, 0.12)",
+          }}
+        />
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.25 }}>{tweet.name || tweet.handle || "X"}</div>
+          {tweet.handle ? (
+            <div style={{ fontSize: 14, color: "rgba(54, 55, 55, 0.62)", lineHeight: 1.25 }}>@{tweet.handle}</div>
+          ) : null}
+        </div>
+        {tweet.url ? (
+          <a
+            href={tweet.url}
+            aria-label="Abrir tweet no X"
+            style={{
+              color: "#111827",
+              fontSize: 25,
+              lineHeight: 1,
+              textDecoration: "none",
+              fontWeight: 500,
+            }}
+          >
+            X
+          </a>
+        ) : (
+          <span style={{ fontSize: 25, lineHeight: 1 }}>X</span>
+        )}
+      </div>
+
+      <div
+        style={{
+          marginTop: 14,
+          whiteSpace: "pre-wrap",
+          fontSize: 15,
+          lineHeight: 1.42,
+          color: "rgba(54, 55, 55, 0.95)",
+        }}
+      >
+        {renderTweetText(tweet.text)}
+      </div>
+
+      {media.length > 0 ? (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: media.length === 1 ? "1fr" : "repeat(2, minmax(0, 1fr))",
+            gap: 4,
+            marginTop: 14,
+            overflow: "hidden",
+            border: "1px solid rgba(54, 55, 55, 0.12)",
+            borderRadius: 8,
+          }}
+        >
+          {media.map((src, mediaIndex) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              style={{
+                width: "100%",
+                height: media.length === 1 ? "auto" : 170,
+                minHeight: media.length === 1 ? undefined : 170,
+                objectFit: "cover",
+                gridColumn: media.length === 3 && mediaIndex === 0 ? "span 2" : undefined,
+              }}
+            />
+          ))}
+        </div>
+      ) : null}
+
+      {hasPreview ? (
+        <a
+          href={tweet.cardUrl || tweet.url || "#"}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 14,
+            marginTop: 14,
+            padding: 12,
+            minHeight: 64,
+            border: "1px solid rgba(54, 55, 55, 0.12)",
+            borderRadius: 8,
+            color: "inherit",
+            textDecoration: "none",
+          }}
+        >
+          <span style={{ minWidth: 0 }}>
+            {tweet.cardDomain ? (
+              <span style={{ display: "block", fontSize: 13, color: "rgba(54, 55, 55, 0.62)" }}>{tweet.cardDomain}</span>
+            ) : null}
+            {tweet.cardTitle ? <span style={{ display: "block", fontSize: 15, fontWeight: 600 }}>{tweet.cardTitle}</span> : null}
+          </span>
+          <span
+            aria-hidden="true"
+            style={{
+              display: "grid",
+              placeItems: "center",
+              flex: "0 0 64px",
+              width: 64,
+              height: 64,
+              borderRadius: 12,
+              background: "rgba(54, 55, 55, 0.07)",
+              fontSize: 26,
+              color: "rgba(54, 55, 55, 0.55)",
+            }}
+          >
+            ↗
+          </span>
+        </a>
+      ) : null}
+
+      {tweet.date ? (
+        <div style={{ marginTop: 14, fontSize: 13, color: "rgba(54, 55, 55, 0.56)" }}>{tweet.date}</div>
+      ) : null}
+      {tweet.stats ? (
+        <>
+          <div style={{ marginTop: 10, borderTop: "1px solid rgba(54, 55, 55, 0.12)" }} />
+          <div style={{ marginTop: 10, fontSize: 13, color: "rgba(54, 55, 55, 0.56)" }}>{tweet.stats}</div>
+        </>
+      ) : null}
+    </article>
+  );
 }
 
 function renderImage(markdown: string, key: string) {
@@ -148,7 +389,48 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       continue;
     }
 
-    if (trimmed === "---" || trimmed === "***") {
+    if (trimmed === ":::tweet") {
+      flushParagraph(blocks, paragraph);
+      flushList(blocks, list);
+      flushOrderedList(blocks, orderedList);
+
+      const tweetLines: string[] = [];
+      index += 1;
+
+      while (index < lines.length && lines[index].trim() !== ":::") {
+        tweetLines.push(lines[index]);
+        index += 1;
+      }
+
+      blocks.push(renderTweet(parseTweetBlock(tweetLines), `tweet-${blocks.length}`));
+      previousBlockWasImage = false;
+      continue;
+    }
+
+    if (lines[index + 1]?.trim().match(/^-{3,}$/)) {
+      flushParagraph(blocks, paragraph);
+      flushList(blocks, list);
+      flushOrderedList(blocks, orderedList);
+      blocks.push(
+        <h2
+          key={`h2-${blocks.length}`}
+          style={{
+            margin: "44px 0 16px",
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(34px, 4vw, 52px)",
+            lineHeight: 1,
+            letterSpacing: "-0.04em",
+          }}
+        >
+          {renderInline(trimmed.replace(/^\*\*(.*)\*\*$/, "$1"))}
+        </h2>,
+      );
+      previousBlockWasImage = false;
+      index += 1;
+      continue;
+    }
+
+    if (trimmed === "---" || trimmed === "***" || trimmed === "* * *") {
       flushParagraph(blocks, paragraph);
       flushList(blocks, list);
       flushOrderedList(blocks, orderedList);
@@ -278,10 +560,10 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       continue;
     }
 
-    if (trimmed.startsWith("- ")) {
+    if (trimmed.startsWith("- ") || trimmed.match(/^\*\s+/)) {
       flushParagraph(blocks, paragraph);
       flushOrderedList(blocks, orderedList);
-      list.push(trimmed.slice(2));
+      list.push(trimmed.replace(/^[-*]\s+/, ""));
       previousBlockWasImage = false;
       continue;
     }
@@ -292,6 +574,28 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       flushParagraph(blocks, paragraph);
       flushList(blocks, list);
       orderedList.push(orderedListMatch[1]);
+      previousBlockWasImage = false;
+      continue;
+    }
+
+    if (previousBlockWasImage) {
+      flushList(blocks, list);
+      flushOrderedList(blocks, orderedList);
+      blocks.push(
+        <p
+          key={`caption-${blocks.length}`}
+          style={{
+            maxWidth: 560,
+            margin: "0 auto 34px",
+            textAlign: "center",
+            fontSize: 14,
+            lineHeight: 1.45,
+            opacity: 0.58,
+          }}
+        >
+          <em>{renderInline(trimmed)}</em>
+        </p>,
+      );
       previousBlockWasImage = false;
       continue;
     }

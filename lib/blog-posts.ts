@@ -11,6 +11,12 @@ export type BlogPost = {
 };
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
+const DATE_FORMATTER = new Intl.DateTimeFormat("pt-BR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
 function parseFrontmatter(fileContent: string) {
   const match = fileContent.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
@@ -58,8 +64,17 @@ export function getBlogPosts(): BlogPost[] {
   return fs
     .readdirSync(BLOG_DIR)
     .filter((filename) => filename.endsWith(".md"))
-    .sort()
-    .map(readPost);
+    .map(readPost)
+    .sort((postA, postB) => {
+      const dateA = Date.parse(`${postA.date}T00:00:00.000Z`);
+      const dateB = Date.parse(`${postB.date}T00:00:00.000Z`);
+
+      if (!Number.isNaN(dateA) && !Number.isNaN(dateB) && dateA !== dateB) {
+        return dateB - dateA;
+      }
+
+      return postA.slug.localeCompare(postB.slug);
+    });
 }
 
 export function getBlogPost(slug: string): BlogPost | null {
@@ -70,4 +85,14 @@ export function getBlogPost(slug: string): BlogPost | null {
   }
 
   return readPost(filename);
+}
+
+export function formatBlogDate(date: string) {
+  const parsed = new Date(`${date}T00:00:00.000Z`);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return date;
+  }
+
+  return DATE_FORMATTER.format(parsed);
 }

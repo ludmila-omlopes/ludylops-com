@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarkdownContent } from "@/components/MarkdownContent";
-import { getBlogPost, getBlogPosts } from "@/lib/blog-posts";
+import { formatBlogDate, getBlogPost, getBlogPosts } from "@/lib/blog-posts";
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -53,13 +53,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               alignItems: "center",
               marginBottom: 18,
               fontSize: 13,
-              textTransform: "uppercase",
-              letterSpacing: ".16em",
+              letterSpacing: ".08em",
               opacity: 0.65,
             }}
           >
-            <span>{post.status}</span>
-            <span>{post.date}</span>
+            <span>{formatBlogDate(post.date)}</span>
           </div>
           <h1
             style={{

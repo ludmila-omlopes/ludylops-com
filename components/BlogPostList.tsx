@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { BlogPost } from "@/lib/blog-posts";
+import { formatBlogDate, type BlogPost } from "@/lib/blog-posts";
 
 type BlogPostListProps = {
   posts: BlogPost[];
@@ -14,7 +14,7 @@ export function BlogPostList({ posts }: BlogPostListProps) {
           href={`/blog/${post.slug}`}
           style={{
             display: "grid",
-            gridTemplateColumns: "70px minmax(0, 1fr) 160px 120px",
+            gridTemplateColumns: "70px minmax(0, 1fr) 190px",
             gap: 28,
             alignItems: "center",
             padding: "30px 40px",
@@ -43,19 +43,7 @@ export function BlogPostList({ posts }: BlogPostListProps) {
               {post.excerpt}
             </p>
           </div>
-          <span
-            style={{
-              justifySelf: "start",
-              border: "1px solid var(--fg)",
-              padding: "7px 10px",
-              fontSize: 12,
-              textTransform: "uppercase",
-              letterSpacing: ".12em",
-            }}
-          >
-            {post.status}
-          </span>
-          <span style={{ textAlign: "right", fontSize: 13, opacity: 0.65 }}>{post.date}</span>
+          <span style={{ textAlign: "right", fontSize: 13, opacity: 0.65 }}>{formatBlogDate(post.date)}</span>
         </Link>
       ))}
     </div>

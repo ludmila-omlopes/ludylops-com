@@ -22,7 +22,7 @@ export default function BlogPage() {
         }}
       >
         <div>
-          <div style={{ ...LABEL_STYLE, marginBottom: 14 }}>Textos em preparacao</div>
+          <div style={{ ...LABEL_STYLE, marginBottom: 14 }}>Textos publicados</div>
           <h1
             style={{
               margin: 0,
@@ -36,8 +36,8 @@ export default function BlogPage() {
             Blog.
           </h1>
           <p style={{ marginTop: 16, fontSize: 18, maxWidth: 620, lineHeight: 1.4 }}>
-            Uma fila viva de posts que ainda vou escrever: tecnologia, jogos, live,
-            hardware e experimentos pelo caminho.
+            Ensaios e notas sobre tecnologia, jogos, cripto, ferramentas e experimentos
+            pelo caminho.
           </p>
         </div>
       </section>
