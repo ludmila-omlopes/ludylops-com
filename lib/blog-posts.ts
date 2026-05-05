@@ -7,6 +7,8 @@ export type BlogPost = {
   excerpt: string;
   status: "planejado" | "rascunho" | "publicado";
   date: string;
+  coverImage?: string;
+  keywords: string[];
   content: string;
 };
 
@@ -46,6 +48,7 @@ function readPost(filename: string): BlogPost {
   const slug = filename.replace(/\.md$/, "");
   const fileContent = fs.readFileSync(path.join(BLOG_DIR, filename), "utf8");
   const { metadata, content } = parseFrontmatter(fileContent);
+  const firstMarkdownImage = content.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1];
 
   return {
     slug,
@@ -56,6 +59,10 @@ function readPost(filename: string): BlogPost {
         ? metadata.status
         : "planejado",
     date: metadata.date ?? "Em breve",
+    coverImage: metadata.cover ?? metadata.image ?? firstMarkdownImage,
+    keywords: metadata.keywords
+      ? metadata.keywords.split(",").map((keyword) => keyword.trim()).filter(Boolean)
+      : [],
     content,
   };
 }

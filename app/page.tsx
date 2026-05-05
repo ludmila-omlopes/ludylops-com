@@ -1,6 +1,7 @@
 ﻿import Link from "next/link";
 import { GlitchVerb } from "@/components/GlitchVerb";
 import { SITE } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
 
 const LABEL_STYLE = {
   fontSize: 13,
@@ -11,10 +12,23 @@ const LABEL_STYLE = {
 };
 
 export default function HomePage() {
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: SITE.NAME,
+    url: SITE.URL,
+    image: `${SITE.URL}/ludpfp.jpg`,
+    jobTitle: "Desenvolvedora e criadora de conteúdo",
+    description: SITE.DESCRIPTION,
+    sameAs: [SITE.YT_URL, SITE.GH_URL, SITE.X_URL, SITE.TH_URL],
+  };
+
   return (
     <main style={{ background: "var(--bg)", color: "var(--fg)", minHeight: "100%" }}>
+      <JsonLd data={personJsonLd} />
       {/* HERO */}
       <section
+        className="home-hero"
         style={{
           padding: "56px 40px 72px",
           maxWidth: 1400,
@@ -26,6 +40,7 @@ export default function HomePage() {
         }}
       >
         <div
+          className="home-hero-copy"
           style={{
             display: "flex",
             flexDirection: "column",
@@ -36,6 +51,7 @@ export default function HomePage() {
           <div>
             <div style={{ ...LABEL_STYLE, marginBottom: 20 }}>Oi, eu sou a Ludmila —</div>
             <h1
+              className="home-title"
               style={{
                 margin: 0,
                 fontWeight: 800,
@@ -52,7 +68,7 @@ export default function HomePage() {
             </h1>
           </div>
 
-          <div style={{ marginTop: 40, maxWidth: 540 }}>
+          <div className="home-intro" style={{ marginTop: 40, maxWidth: 540 }}>
             <p style={{ margin: 0, fontSize: 19, lineHeight: 1.5 }}>
               Gamer, desenvolvedora open-source, generalista tech. Extremamente curiosa, 
               exploro IA, web3, e tudo que é novo e interessante. Gosto de resolver problemas.
@@ -61,8 +77,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div style={{ position: "relative" }}>
+        <div className="home-portrait-wrap" style={{ position: "relative" }}>
           <div
+            className="home-portrait"
             style={{
               aspectRatio: "4/5",
               overflow: "hidden",
@@ -113,6 +130,7 @@ export default function HomePage() {
           },
         ].map((s) => (
           <Link
+            className="home-index-link"
             key={s.n}
             href={s.id}
             style={{
@@ -128,8 +146,9 @@ export default function HomePage() {
               textAlign: "left",
             }}
           >
-            <span style={{ fontSize: 15, opacity: 0.55 }}>{s.n}</span>
+            <span className="home-index-number" style={{ fontSize: 15, opacity: 0.55 }}>{s.n}</span>
             <span
+              className="home-index-title"
               style={{
                 fontSize: "clamp(56px, 6vw, 88px)",
                 fontWeight: 800,
@@ -140,8 +159,8 @@ export default function HomePage() {
             >
               {s.k}
             </span>
-            <span style={{ fontSize: 15, maxWidth: 260 }}>{s.d}</span>
-            <span style={{ fontSize: 13, opacity: 0.55, textAlign: "right" }}>
+            <span className="home-index-description" style={{ fontSize: 15, maxWidth: 260 }}>{s.d}</span>
+            <span className="home-index-meta" style={{ fontSize: 13, opacity: 0.55, textAlign: "right" }}>
               {s.meta} <span style={{ marginLeft: 6 }}>→</span>
             </span>
           </Link>

@@ -16,6 +16,7 @@ export function TopMenu() {
 
   return (
     <header
+      className="site-header"
       style={{
         position: "sticky",
         top: 0,
@@ -31,6 +32,7 @@ export function TopMenu() {
       }}
     >
       <Link
+        className="site-brand"
         href="/"
         style={{
           color: "var(--fg)",
@@ -43,11 +45,12 @@ export function TopMenu() {
         {isHome ? "Ludmila" : "← Ludmila"}
       </Link>
 
-      <nav style={{ display: "flex", gap: 24, alignItems: "center" }}>
+      <nav className="site-nav" style={{ display: "flex", gap: 24, alignItems: "center" }}>
         {ITEMS.map(([href, label]) => {
           const active = pathname === href;
           return (
             <Link
+              className="site-nav-link"
               key={href}
               href={href}
               style={{
@@ -64,6 +67,7 @@ export function TopMenu() {
           );
         })}
         <a
+          className="site-nav-link"
           href={SITE.YT_URL}
           target="_blank"
           rel="noreferrer"
@@ -82,6 +86,7 @@ export function TopMenu() {
           YouTube
         </a>
         <a
+          className="site-nav-link"
           href={SITE.GH_URL}
           target="_blank"
           rel="noreferrer"

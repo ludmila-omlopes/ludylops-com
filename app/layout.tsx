@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, Fraunces } from "next/font/google";
 import { TopMenu } from "@/components/TopMenu";
 import { Footer } from "@/components/Footer";
+import { SITE } from "@/lib/site";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -27,9 +28,45 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Ludmila — Eu crio, jogo e quebro coisas.",
-  description:
-    "Streamer, criadora e inventeira. Em São Paulo. Ao vivo no YouTube, desenvolvendo o ludylops.live e mexendo com portáteis, impressões 3D e projetos com Raspberry Pi.",
+  metadataBase: new URL(SITE.URL),
+  title: {
+    default: "Ludmila | Dev, streamer e criadora open source",
+    template: "%s | Ludmila",
+  },
+  description: SITE.DESCRIPTION,
+  applicationName: SITE.NAME,
+  authors: [{ name: SITE.NAME, url: SITE.URL }],
+  creator: SITE.NAME,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: SITE.URL,
+    siteName: SITE.NAME,
+    title: "Ludmila | Dev, streamer e criadora open source",
+    description: SITE.DESCRIPTION,
+    images: [
+      {
+        url: "/ludpfp.jpg",
+        width: 1200,
+        height: 1200,
+        alt: "Ludmila",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ludmila | Dev, streamer e criadora open source",
+    description: SITE.DESCRIPTION,
+    images: ["/ludpfp.jpg"],
+    creator: "@ludylops",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

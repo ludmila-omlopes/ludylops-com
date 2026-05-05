@@ -1,3 +1,22 @@
+import type { Metadata } from "next";
+
+const BUILD_DESCRIPTION =
+  "Projetos open source da Ludmila para lives, automações, análise de vídeos, ferramentas web e experimentos.";
+
+export const metadata: Metadata = {
+  title: "Projetos open source",
+  description: BUILD_DESCRIPTION,
+  alternates: {
+    canonical: "/build",
+  },
+  openGraph: {
+    type: "website",
+    url: "/build",
+    title: "Projetos open source | Ludmila",
+    description: BUILD_DESCRIPTION,
+  },
+};
+
 const ITEMS = [
   {
     t: "ludylops.live",
@@ -11,7 +30,7 @@ const ITEMS = [
   },
   {
     t: "Talk to the Other Side",
-    d: "Tradutor Estrangeiro ↔ português para fãs de Ordem Paranormal RPG.",
+    d: "Tradutor Estrangeiro <-> português para fãs de Ordem Paranormal RPG.",
     href: "https://other-side-nine.vercel.app/",
   },
   {
@@ -30,8 +49,9 @@ export default function BuildPage() {
   const fg = "var(--fg)";
   return (
     <main style={{ background: "var(--bg)", color: fg, minHeight: "100%" }}>
-      <section style={{ padding: "48px 40px 20px", maxWidth: 1400, margin: "0 auto" }}>
+      <section className="simple-hero" style={{ padding: "48px 40px 20px", maxWidth: 1400, margin: "0 auto" }}>
         <h1
+          className="simple-title"
           style={{
             margin: 0,
             fontFamily: "var(--font-display)",
@@ -43,7 +63,7 @@ export default function BuildPage() {
         >
           Projetos.
         </h1>
-        <p style={{ marginTop: 16, fontSize: 18, maxWidth: 620, lineHeight: 1.4 }}>
+        <p className="simple-lede" style={{ marginTop: 16, fontSize: 18, maxWidth: 620, lineHeight: 1.4 }}>
           Ferramentas open source que eu crio para a minha live, e algumas para todo
           mundo. Está tudo no GitHub.
         </p>
@@ -51,6 +71,7 @@ export default function BuildPage() {
       <section style={{ borderTop: `1px solid ${fg}`, marginTop: 24 }}>
         {ITEMS.map((p, i) => (
           <a
+            className="project-row"
             key={i}
             href={p.href}
             target="_blank"
@@ -67,6 +88,7 @@ export default function BuildPage() {
             }}
           >
             <span
+              className="project-title"
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(40px, 4vw, 56px)",
@@ -77,7 +99,7 @@ export default function BuildPage() {
             >
               {p.t}
             </span>
-            <span style={{ fontSize: 15, opacity: 0.75 }}>{p.d}</span>
+            <span className="project-description" style={{ fontSize: 15, opacity: 0.75 }}>{p.d}</span>
             <span style={{ textAlign: "right", fontSize: 22 }}>↗</span>
           </a>
         ))}

@@ -1,3 +1,22 @@
+import type { Metadata } from "next";
+
+const TINKER_DESCRIPTION =
+  "Lab da Ludmila com impressão 3D, portáteis, Raspberry Pi, montagem de PCs, cripto e experimentos de hardware.";
+
+export const metadata: Metadata = {
+  title: "Lab de hardware e experimentos",
+  description: TINKER_DESCRIPTION,
+  alternates: {
+    canonical: "/tinker",
+  },
+  openGraph: {
+    type: "website",
+    url: "/tinker",
+    title: "Lab de hardware e experimentos | Ludmila",
+    description: TINKER_DESCRIPTION,
+  },
+};
+
 const LABEL_STYLE = {
   fontSize: 13,
   textTransform: "uppercase" as const,
@@ -18,9 +37,10 @@ export default function TinkerPage() {
   const fg = "var(--fg)";
   return (
     <main style={{ background: "var(--bg)", color: fg, minHeight: "100%" }}>
-      <section style={{ padding: "48px 40px 20px", maxWidth: 1400, margin: "0 auto" }}>
-        <div style={{ ...LABEL_STYLE, marginBottom: 14 }}>Seção — lab</div>
+      <section className="simple-hero" style={{ padding: "48px 40px 20px", maxWidth: 1400, margin: "0 auto" }}>
+        <div style={{ ...LABEL_STYLE, marginBottom: 14 }}>Seção - lab</div>
         <h1
+          className="simple-title"
           style={{
             margin: 0,
             fontFamily: "var(--font-display)",
@@ -32,7 +52,7 @@ export default function TinkerPage() {
         >
           Lab.
         </h1>
-        <p style={{ marginTop: 16, fontSize: 18, maxWidth: 620, lineHeight: 1.4 }}>
+        <p className="simple-lede" style={{ marginTop: 16, fontSize: 18, maxWidth: 620, lineHeight: 1.4 }}>
           Hardware em que eu tenho mergulhado. Textos, fotos e a ocasional história de
           advertência.
         </p>
@@ -40,6 +60,7 @@ export default function TinkerPage() {
       <section style={{ borderTop: `1px solid ${fg}`, marginTop: 24 }}>
         {ITEMS.map(([n, k, d]) => (
           <div
+            className="tinker-row"
             key={n}
             style={{
               display: "grid",
@@ -52,6 +73,7 @@ export default function TinkerPage() {
           >
             <span style={{ fontSize: 15, opacity: 0.55 }}>{n}</span>
             <span
+              className="tinker-title"
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(44px, 5vw, 72px)",
@@ -62,7 +84,7 @@ export default function TinkerPage() {
             >
               {k}
             </span>
-            <span style={{ fontSize: 15, opacity: 0.75 }}>{d}</span>
+            <span className="tinker-description" style={{ fontSize: 15, opacity: 0.75 }}>{d}</span>
           </div>
         ))}
       </section>

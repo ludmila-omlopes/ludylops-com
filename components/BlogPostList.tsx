@@ -7,9 +7,10 @@ type BlogPostListProps = {
 
 export function BlogPostList({ posts }: BlogPostListProps) {
   return (
-    <div style={{ borderTop: "1px solid var(--fg)" }}>
+    <div className="blog-list" style={{ borderTop: "1px solid var(--fg)" }}>
       {posts.map((post, index) => (
         <Link
+          className="blog-list-row"
           key={post.slug}
           href={`/blog/${post.slug}`}
           style={{
@@ -23,11 +24,12 @@ export function BlogPostList({ posts }: BlogPostListProps) {
             textDecoration: "none",
           }}
         >
-          <span style={{ fontSize: 15, opacity: 0.55 }}>
+          <span className="blog-list-number" style={{ fontSize: 15, opacity: 0.55 }}>
             {String(index + 1).padStart(2, "0")}
           </span>
           <div>
             <h2
+              className="blog-list-title"
               style={{
                 margin: 0,
                 fontFamily: "var(--font-display)",
@@ -39,11 +41,11 @@ export function BlogPostList({ posts }: BlogPostListProps) {
             >
               {post.title}
             </h2>
-            <p style={{ margin: "12px 0 0", maxWidth: 680, fontSize: 16, opacity: 0.75 }}>
+            <p className="blog-list-excerpt" style={{ margin: "12px 0 0", maxWidth: 680, fontSize: 16, opacity: 0.75 }}>
               {post.excerpt}
             </p>
           </div>
-          <span style={{ textAlign: "right", fontSize: 13, opacity: 0.65 }}>{formatBlogDate(post.date)}</span>
+          <span className="blog-list-date" style={{ textAlign: "right", fontSize: 13, opacity: 0.65 }}>{formatBlogDate(post.date)}</span>
         </Link>
       ))}
     </div>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
 import {
   getLatestYoutubeShorts,
@@ -5,6 +6,23 @@ import {
   type YoutubeShort,
   type YoutubeVod,
 } from "@/lib/youtube-vods";
+
+const STREAM_DESCRIPTION =
+  "Lives, VODs e cortes da Ludmila no YouTube, com jogos longos, puzzles, campanhas e experimentos da stream.";
+
+export const metadata: Metadata = {
+  title: "Lives no YouTube",
+  description: STREAM_DESCRIPTION,
+  alternates: {
+    canonical: "/stream",
+  },
+  openGraph: {
+    type: "website",
+    url: "/stream",
+    title: "Lives no YouTube | Ludmila",
+    description: STREAM_DESCRIPTION,
+  },
+};
 
 const LABEL_STYLE = {
   fontSize: 13,
@@ -32,13 +50,13 @@ const SERIES: Series[] = [
   },
   {
     title: "Silksong",
-    meta: "71 episodios",
+    meta: "71 episódios",
     url: `${SITE.YT_URL}/search?query=Silksong`,
     thumbnailUrl: "https://i.ytimg.com/vi/_5Szqwevsho/hqdefault.jpg",
   },
   {
     title: "Blue Prince",
-    meta: "puzzle e investigacao",
+    meta: "puzzle e investigação",
     url: `${SITE.YT_URL}/search?query=Blue%20Prince`,
     thumbnailUrl: "https://i.ytimg.com/vi/ZJI-18NUM0s/hqdefault.jpg",
   },
@@ -91,7 +109,7 @@ export default async function StreamPage() {
         <div className="stream-hero-copy">
           <div style={{ ...LABEL_STYLE, marginBottom: 18 }}>Lives no YouTube</div>
           <h1 style={{ ...DISPLAY }} className="stream-title">
-            Eu faco lives de jogos.
+            Eu faço lives de jogos.
           </h1>
           <p className="stream-lede">
             Campanhas longas, puzzles, metroidvanias, terror, conversa com o chat e
@@ -102,16 +120,16 @@ export default async function StreamPage() {
               Ver canal
             </a>
             <a className="stream-text-link" href={latestVodUrl} target="_blank" rel="noreferrer">
-              Assistir ultimo VOD →
+              Assistir último VOD →
             </a>
           </div>
         </div>
 
         <aside className="stream-intro-panel" aria-label="Resumo das lives">
           <div>
-            <div style={{ ...LABEL_STYLE, marginBottom: 12 }}>O que voce encontra</div>
+            <div style={{ ...LABEL_STYLE, marginBottom: 12 }}>O que você encontra</div>
             <ul className="stream-intro-list">
-              <li>Lives normalmente as tercas e quintas</li>
+              <li>Lives normalmente às terças e quintas</li>
               <li>Jogos narrativos, puzzles e boss fight teimosa</li>
               <li>Chat participando com ideias, quotes e apostas pipetz</li>
             </ul>
@@ -127,9 +145,9 @@ export default async function StreamPage() {
         <section className="stream-start-here">
           <div>
             <div style={{ ...LABEL_STYLE, marginBottom: 12 }}>Comece por aqui</div>
-            <h2 style={{ ...DISPLAY }}>O ultimo VOD da live</h2>
+            <h2 style={{ ...DISPLAY }}>O último VOD da live</h2>
             <p>
-              Um ponto de entrada rapido para entender o ritmo: jogo longo, comentarios
+              Um ponto de entrada rápido para entender o ritmo: jogo longo, comentários
               durante a gameplay e aquela energia de descobrir as coisas junto com o chat.
             </p>
           </div>
@@ -151,7 +169,7 @@ export default async function StreamPage() {
       <section className="stream-section">
         <div className="stream-section-heading">
           <div style={LABEL_STYLE}>VODs recentes</div>
-          <p>Arquivo das ultimas transmissoes, com duracao e jogo para escolher sem precisar adivinhar.</p>
+          <p>Arquivo das últimas transmissões, com duração e jogo para escolher sem precisar adivinhar.</p>
         </div>
         <div className="stream-vod-grid">
           {secondaryVods.map((vod) => (
@@ -176,7 +194,7 @@ export default async function StreamPage() {
         <section className="stream-section stream-shorts-section">
           <div className="stream-section-heading">
             <div style={LABEL_STYLE}>YouTube Shorts</div>
-            <p>Videos curtos do canal: melhores momentos, reacoes e pequenos recortes das lives.</p>
+            <p>Vídeos curtos do canal: melhores momentos, reações e pequenos recortes das lives.</p>
           </div>
           <div className="stream-shorts-grid">
             {latestShorts.map((short) => (
@@ -197,8 +215,8 @@ export default async function StreamPage() {
 
       <section className="stream-section">
         <div className="stream-section-heading">
-          <div style={LABEL_STYLE}>Series do canal</div>
-          <p>Campanhas, obsessoes recentes e jogos que ja passaram pela bancada.</p>
+          <div style={LABEL_STYLE}>Séries do canal</div>
+          <p>Campanhas, obsessões recentes e jogos que já passaram pela bancada.</p>
         </div>
         <div className="stream-series-grid">
           {SERIES.map((series) => (
@@ -222,13 +240,13 @@ export default async function StreamPage() {
         </div>
         <div className="stream-tools-copy">
           Uma camada personalizada para a minha live. Aposte pontos pipetz, mande quotes
-          para a tela e entre na fila de jogos. Codigo aberto.
+          para a tela e entre na fila de jogos. Código aberto.
           <div>
             <a href={SITE.LUDYLOPS_LIVE} target="_blank" rel="noreferrer">
               Abrir ↗
             </a>
             <a href={SITE.GH_URL} target="_blank" rel="noreferrer">
-              Codigo ↗
+              Código ↗
             </a>
           </div>
         </div>

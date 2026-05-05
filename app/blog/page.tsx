@@ -1,5 +1,25 @@
+import type { Metadata } from "next";
 import { BlogPostList } from "@/components/BlogPostList";
+import { JsonLd } from "@/components/JsonLd";
 import { getBlogPosts } from "@/lib/blog-posts";
+import { SITE } from "@/lib/site";
+
+const BLOG_DESCRIPTION =
+  "Textos da Ludmila sobre tecnologia, jogos, cripto, ferramentas, IA e experimentos.";
+
+export const metadata: Metadata = {
+  title: "Blog sobre tecnologia, jogos e cripto",
+  description: BLOG_DESCRIPTION,
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    type: "website",
+    url: "/blog",
+    title: "Blog sobre tecnologia, jogos e cripto | Ludmila",
+    description: BLOG_DESCRIPTION,
+  },
+};
 
 const LABEL_STYLE = {
   fontSize: 13,
@@ -11,10 +31,30 @@ const LABEL_STYLE = {
 
 export default function BlogPage() {
   const posts = getBlogPosts();
+  const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Blog da Ludmila",
+    url: `${SITE.URL}/blog`,
+    description: BLOG_DESCRIPTION,
+    author: {
+      "@type": "Person",
+      name: SITE.NAME,
+      url: SITE.URL,
+    },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      url: `${SITE.URL}/blog/${post.slug}`,
+      datePublished: post.date,
+    })),
+  };
 
   return (
     <main style={{ background: "var(--bg)", color: "var(--fg)", minHeight: "100%" }}>
+      <JsonLd data={blogJsonLd} />
       <section
+        className="simple-hero"
         style={{
           padding: "48px 40px 24px",
           maxWidth: 1400,
@@ -24,6 +64,7 @@ export default function BlogPage() {
         <div>
           <div style={{ ...LABEL_STYLE, marginBottom: 14 }}>Textos publicados</div>
           <h1
+            className="simple-title"
             style={{
               margin: 0,
               fontFamily: "var(--font-display)",
@@ -35,7 +76,7 @@ export default function BlogPage() {
           >
             Blog.
           </h1>
-          <p style={{ marginTop: 16, fontSize: 18, maxWidth: 620, lineHeight: 1.4 }}>
+          <p className="simple-lede" style={{ marginTop: 16, fontSize: 18, maxWidth: 620, lineHeight: 1.4 }}>
             Ensaios e notas sobre tecnologia, jogos, cripto, ferramentas e experimentos
             pelo caminho.
           </p>

@@ -9,6 +9,7 @@ export function Footer() {
 
   return (
     <footer
+      className="site-footer"
       style={{
         borderTop: "1px solid var(--fg)",
         padding: "28px 40px 40px",
@@ -19,7 +20,7 @@ export function Footer() {
         color: "var(--fg)",
       }}
     >
-      <div style={{ display: "flex", gap: 20 }}>
+      <div className="site-footer-links" style={{ display: "flex", gap: 20 }}>
         <a href={SITE.YT_URL} target="_blank" rel="noreferrer" style={linkStyle}>
           YouTube
         </a>
@@ -33,8 +34,8 @@ export function Footer() {
           Threads
         </a>
       </div>
-      <div style={{ opacity: 0.6 }}>
-        © 2026 Ludmila · código aberto · feito na teimosia &amp; no CSS
+      <div className="site-footer-credit" style={{ opacity: 0.6 }}>
+        Feito com amor (e Codex) por Ludmila Lopes &#x1FA77;
       </div>
     </footer>
   );
