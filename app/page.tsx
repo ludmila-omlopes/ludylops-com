@@ -119,7 +119,7 @@ export default function HomePage() {
             n: "02",
             k: "Projetos.",
             d: "Ferramentas open source para a minha live — e algumas para todo mundo.",
-            meta: "4 repositórios · MIT",
+            meta: "5 repositórios · MIT",
           },
           {
             id: "/blog",

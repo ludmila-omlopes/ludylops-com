@@ -97,6 +97,30 @@ button {
   text-shadow: 2px 0 0 rgba(255, 0, 80, 0.85), -2px 0 0 rgba(0, 220, 255, 0.85);
 }
 
+.glitch-verb {
+  display: inline-grid;
+  grid-template-areas: "word";
+  position: relative;
+  vertical-align: baseline;
+  font-style: italic;
+  font-weight: 500;
+  padding-inline: 0.04em 0.1em;
+  margin-inline: -0.04em -0.1em;
+}
+
+.glitch-verb-measure {
+  grid-area: word;
+  visibility: hidden;
+  white-space: pre;
+  pointer-events: none;
+}
+
+.glitch-verb-word {
+  grid-area: word;
+  white-space: pre;
+  min-width: 0;
+}
+
 ::selection {
   background: var(--fg);
   color: var(--bg);
@@ -666,6 +690,31 @@ button {
   }
 }
 
+@media (max-width: 1180px) and (min-width: 981px) {
+  .home-hero {
+    grid-template-columns: 1fr !important;
+    gap: 34px !important;
+  }
+
+  .home-hero-copy {
+    min-height: 0 !important;
+  }
+
+  .home-title {
+    font-size: clamp(62px, 10vw, 106px) !important;
+  }
+
+  .home-portrait-wrap {
+    max-width: 520px !important;
+  }
+
+  .home-portrait {
+    min-height: 0 !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5 !important;
+  }
+}
+
 @media (max-width: 620px) {
   body {
     letter-spacing: 0;
@@ -700,6 +749,13 @@ button {
   .home-title {
     font-size: clamp(46px, 16vw, 66px) !important;
     letter-spacing: -0.04em !important;
+  }
+
+  .home-title .glitch-verb {
+    display: grid;
+    width: max-content;
+    max-width: 100%;
+    margin-top: 0.02em;
   }
 
   .home-intro p,

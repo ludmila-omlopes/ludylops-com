@@ -29,6 +29,11 @@ const ITEMS = [
     href: "https://github.com/ludmila-omlopes/youtube-video-analyzer-mcp",
   },
   {
+    t: "Video Timeline Copilot",
+    d: "Ferramenta para gerar timelines editaveis a partir de videos usando transcricao e IA.",
+    href: "https://github.com/ludmila-omlopes/video-timeline-copilot",
+  },
+  {
     t: "Talk to the Other Side",
     d: "Tradutor Estrangeiro <-> português para fãs de Ordem Paranormal RPG.",
     href: "https://other-side-nine.vercel.app/",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const CHARS_POOL =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%&*/?<>";
@@ -16,23 +16,6 @@ export function GlitchVerb({
 }) {
   const [i, setI] = useState(0);
   const [glitch, setGlitch] = useState<string | null>(null);
-  const wordRef = useRef<HTMLSpanElement | null>(null);
-  const [boxWidth, setBoxWidth] = useState(0);
-
-  useEffect(() => {
-    if (!wordRef.current) return;
-    const probe = document.createElement("span");
-    probe.style.cssText =
-      "position:absolute; visibility:hidden; white-space:pre; font: inherit; font-style: italic; font-weight: 500;";
-    wordRef.current.appendChild(probe);
-    let max = 0;
-    for (const w of words) {
-      probe.textContent = w;
-      max = Math.max(max, probe.getBoundingClientRect().width);
-    }
-    probe.remove();
-    setBoxWidth(Math.ceil(max));
-  }, [words]);
 
   useEffect(() => {
     let scrambleTimer: ReturnType<typeof setTimeout> | undefined;
@@ -71,19 +54,15 @@ export function GlitchVerb({
   const glitching = glitch != null;
 
   return (
-    <span
-      ref={wordRef}
-      className={glitching ? "glitching" : ""}
-      style={{
-        display: "inline-block",
-        minWidth: boxWidth || undefined,
-        fontStyle: "italic",
-        fontWeight: 500,
-        position: "relative",
-      }}
-      aria-live="polite"
-    >
-      {displayed}
+    <span className="glitch-verb" aria-live="polite">
+      {words.map((word) => (
+        <span key={word} className="glitch-verb-measure" aria-hidden>
+          {word}
+        </span>
+      ))}
+      <span className={glitching ? "glitch-verb-word glitching" : "glitch-verb-word"} aria-atomic="true">
+        {displayed}
+      </span>
     </span>
   );
 }
