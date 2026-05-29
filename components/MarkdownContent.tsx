@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Script from "next/script";
 
 type MarkdownContentProps = {
   content: string;
@@ -19,6 +20,162 @@ type TweetData = {
 };
 
 const defaultTweetAvatar = "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png";
+
+function getYoutubeVideoId(value: string) {
+  const markdownLink = value.match(/^\[([^\]]+)]\((https?:\/\/[^)]+)\)$/);
+  const url = markdownLink?.[2] ?? value;
+
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "");
+
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      if (parsed.pathname === "/watch") {
+        return parsed.searchParams.get("v");
+      }
+
+      const embedMatch = parsed.pathname.match(/^\/(?:embed|shorts)\/([^/?#]+)/);
+      return embedMatch?.[1] ?? null;
+    }
+
+    if (host === "youtu.be") {
+      return parsed.pathname.split("/").filter(Boolean)[0] ?? null;
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+function getThreadsPost(value: string) {
+  const markdownLink = value.match(/^\[([^\]]+)]\((https?:\/\/[^)]+)\)$/);
+  const url = markdownLink?.[2] ?? value;
+
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "");
+
+    if (host !== "threads.com" && host !== "threads.net") {
+      return null;
+    }
+
+    const postMatch = parsed.pathname.match(/^\/@[^/]+\/post\/([^/?#]+)/);
+    const shortMatch = parsed.pathname.match(/^\/t\/([^/?#]+)/);
+    const postId = postMatch?.[1] ?? shortMatch?.[1];
+
+    if (!postId) {
+      return null;
+    }
+
+    return {
+      postId,
+      permalink: `https://www.threads.com/t/${postId}?utm_source=th_embed&utm_campaign=threads_api`,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function renderThreadsEmbed(markdown: string, key: string) {
+  const post = getThreadsPost(markdown);
+
+  if (!post) {
+    return null;
+  }
+
+  return (
+    <div key={key} style={{ display: "flex", justifyContent: "center", margin: "34px 0" }}>
+      <blockquote
+        className="text-post-media"
+        data-text-post-permalink={post.permalink}
+        data-text-post-version="0"
+        data-theme="light"
+        id={`ig-tp-${post.postId}`}
+        style={{
+          background: "#fff",
+          border: "1px solid rgba(0, 0, 0, 0.15)",
+          borderRadius: 16,
+          maxWidth: 658,
+          minWidth: 270,
+          margin: 1,
+          padding: 0,
+          width: "calc(100% - 2px)",
+        }}
+      >
+        <a
+          href={post.permalink}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            background: "#fff",
+            color: "#000",
+            display: "block",
+            fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
+            lineHeight: 0,
+            padding: 0,
+            textAlign: "center",
+            textDecoration: "none",
+            width: "100%",
+          }}
+        >
+          <span
+            style={{
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
+              padding: 40,
+            }}
+          >
+            <svg aria-label="Threads" height="32" role="img" viewBox="0 0 192 192" width="32" xmlns="http://www.w3.org/2000/svg">
+              <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848H97.4576C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195148 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z" />
+            </svg>
+            <span style={{ color: "#000", fontSize: 15, fontWeight: 600, lineHeight: "21px", marginTop: 16 }}>View on Threads</span>
+          </span>
+        </a>
+      </blockquote>
+      <Script src="https://www.threads.com/embed.js" strategy="afterInteractive" />
+    </div>
+  );
+}
+
+function renderYoutubeEmbed(markdown: string, key: string) {
+  const videoId = getYoutubeVideoId(markdown);
+
+  if (!videoId) {
+    return null;
+  }
+
+  return (
+    <div
+      key={key}
+      style={{
+        position: "relative",
+        width: "100%",
+        aspectRatio: "16 / 9",
+        margin: "34px 0",
+        overflow: "hidden",
+        border: "1px solid var(--fg)",
+        background: "#000",
+      }}
+    >
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title="YouTube video player"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          border: 0,
+        }}
+      />
+    </div>
+  );
+}
 
 function renderInline(text: string) {
   const parts: ReactNode[] = [];
@@ -315,9 +472,12 @@ function renderImage(markdown: string, key: string) {
       alt={match[1]}
       style={{
         display: "block",
-        width: "min(100%, 640px)",
+        maxWidth: "min(100%, 640px)",
+        maxHeight: "min(760px, 80vh)",
+        width: "auto",
         height: "auto",
         margin: "34px auto 10px",
+        objectFit: "contain",
       }}
     />
   );
@@ -430,7 +590,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       continue;
     }
 
-    if (trimmed === "---" || trimmed === "***" || trimmed === "* * *") {
+    if (trimmed.match(/^(?:-{3,}|\*{3,}|_{3,}|-(?:\s+-){2,}|\*(?:\s+\*){2,}|_(?:\s+_){2,})$/)) {
       flushParagraph(blocks, paragraph);
       flushList(blocks, list);
       flushOrderedList(blocks, orderedList);
@@ -496,6 +656,28 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       flushParagraph(blocks, paragraph);
       flushList(blocks, list);
       flushOrderedList(blocks, orderedList);
+      previousBlockWasImage = false;
+      continue;
+    }
+
+    const youtubeEmbed = renderYoutubeEmbed(trimmed, `youtube-${blocks.length}`);
+
+    if (youtubeEmbed) {
+      flushParagraph(blocks, paragraph);
+      flushList(blocks, list);
+      flushOrderedList(blocks, orderedList);
+      blocks.push(youtubeEmbed);
+      previousBlockWasImage = false;
+      continue;
+    }
+
+    const threadsEmbed = renderThreadsEmbed(trimmed, `threads-${blocks.length}`);
+
+    if (threadsEmbed) {
+      flushParagraph(blocks, paragraph);
+      flushList(blocks, list);
+      flushOrderedList(blocks, orderedList);
+      blocks.push(threadsEmbed);
       previousBlockWasImage = false;
       continue;
     }
