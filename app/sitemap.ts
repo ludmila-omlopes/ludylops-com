@@ -15,12 +15,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const postEntries = getBlogPosts()
-    .filter((post) => post.status === "publicado")
-    .map((post) => ({
+  const posts = getBlogPosts().filter((post) => post.status === "publicado");
+  const publishedSlugs = new Set(posts.map((post) => post.slug));
+
+  const postEntries = posts.map((post) => {
+    const translationSlug =
+      post.translationSlug && publishedSlugs.has(post.translationSlug) ? post.translationSlug : null;
+
+    return {
       url: `${SITE.URL}/blog/${post.slug}`,
       lastModified: toLastModified(post.date),
-    }));
+      ...(translationSlug
+        ? {
+            alternates: {
+              languages: {
+                [post.lang]: `${SITE.URL}/blog/${post.slug}`,
+                ...(() => {
+                  const translation = posts.find((entry) => entry.slug === translationSlug);
+                  return translation ? { [translation.lang]: `${SITE.URL}/blog/${translation.slug}` } : {};
+                })(),
+              },
+            },
+          }
+        : {}),
+    };
+  });
 
   return [...staticEntries, ...postEntries];
 }

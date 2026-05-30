@@ -1,9 +1,27 @@
 import Link from "next/link";
 import { formatBlogDate, type BlogPost } from "@/lib/blog-posts";
 
-type BlogPostListProps = {
-  posts: BlogPost[];
+type BlogPostListItem = BlogPost & {
+  translationLang?: string;
 };
+
+type BlogPostListProps = {
+  posts: BlogPostListItem[];
+};
+
+const TRANSLATION_BADGES: Record<string, string> = {
+  en: "English available",
+  "en-US": "English available",
+  pt: "Versão em português",
+  "pt-BR": "Versão em português",
+};
+
+function translationBadge(lang?: string) {
+  if (!lang) {
+    return null;
+  }
+  return TRANSLATION_BADGES[lang] ?? `Disponível em ${lang}`;
+}
 
 export function BlogPostList({ posts }: BlogPostListProps) {
   return (
@@ -44,6 +62,24 @@ export function BlogPostList({ posts }: BlogPostListProps) {
             <p className="blog-list-excerpt" style={{ margin: "12px 0 0", maxWidth: 680, fontSize: 16, opacity: 0.75 }}>
               {post.excerpt}
             </p>
+            {translationBadge(post.translationLang) ? (
+              <span
+                className="blog-list-translation"
+                style={{
+                  display: "inline-block",
+                  marginTop: 14,
+                  padding: "4px 10px",
+                  border: "1px solid var(--fg)",
+                  borderRadius: 999,
+                  fontSize: 12,
+                  letterSpacing: ".08em",
+                  textTransform: "uppercase",
+                  opacity: 0.7,
+                }}
+              >
+                {translationBadge(post.translationLang)}
+              </span>
+            ) : null}
           </div>
           <span className="blog-list-date" style={{ textAlign: "right", fontSize: 13, opacity: 0.65 }}>{formatBlogDate(post.date)}</span>
         </Link>

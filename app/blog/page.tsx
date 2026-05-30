@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BlogPostList } from "@/components/BlogPostList";
 import { JsonLd } from "@/components/JsonLd";
-import { getBlogPosts } from "@/lib/blog-posts";
+import { getBlogPost, getListedBlogPosts } from "@/lib/blog-posts";
 import { SITE } from "@/lib/site";
 
 const BLOG_DESCRIPTION =
@@ -30,7 +30,13 @@ const LABEL_STYLE = {
 };
 
 export default function BlogPage() {
-  const posts = getBlogPosts();
+  const posts = getListedBlogPosts().map((post) => {
+    const translation = post.translationSlug ? getBlogPost(post.translationSlug) : null;
+    return {
+      ...post,
+      translationLang: translation?.lang,
+    };
+  });
   const blogJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",

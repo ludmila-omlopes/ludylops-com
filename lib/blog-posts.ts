@@ -9,6 +9,8 @@ export type BlogPost = {
   date: string;
   coverImage?: string;
   keywords: string[];
+  lang: string;
+  translationSlug?: string;
   content: string;
 };
 
@@ -63,6 +65,8 @@ function readPost(filename: string): BlogPost {
     keywords: metadata.keywords
       ? metadata.keywords.split(",").map((keyword) => keyword.trim()).filter(Boolean)
       : [],
+    lang: metadata.lang?.trim() || "pt-BR",
+    translationSlug: metadata.translationSlug?.trim() || undefined,
     content,
   };
 }
@@ -82,6 +86,37 @@ export function getBlogPosts(): BlogPost[] {
 
       return postA.slug.localeCompare(postB.slug);
     });
+}
+
+export const DEFAULT_LANG = "pt-BR";
+
+// Collapses translation pairs into a single listed entry, keeping the
+// default-language version (falling back to a deterministic slug order).
+export function getListedBlogPosts(): BlogPost[] {
+  const posts = getBlogPosts();
+  const bySlug = new Map(posts.map((post) => [post.slug, post]));
+
+  return posts.filter((post) => {
+    if (!post.translationSlug) {
+      return true;
+    }
+
+    const counterpart = bySlug.get(post.translationSlug);
+
+    if (!counterpart) {
+      return true;
+    }
+
+    if (post.lang === DEFAULT_LANG) {
+      return true;
+    }
+
+    if (counterpart.lang === DEFAULT_LANG) {
+      return false;
+    }
+
+    return post.slug < counterpart.slug;
+  });
 }
 
 export function getBlogPost(slug: string): BlogPost | null {
