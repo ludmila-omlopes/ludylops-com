@@ -20,7 +20,7 @@ export default function HomePage() {
     image: `${SITE.URL}/ludpfp.jpg`,
     jobTitle: "Desenvolvedora e criadora de conteúdo",
     description: SITE.DESCRIPTION,
-    sameAs: [SITE.YT_URL, SITE.GH_URL, SITE.X_URL, SITE.TH_URL],
+    sameAs: [SITE.YT_URL, SITE.GH_URL, SITE.X_URL, SITE.TH_URL, SITE.DC_URL],
   };
 
   return (

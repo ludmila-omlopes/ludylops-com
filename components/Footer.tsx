@@ -33,6 +33,9 @@ export function Footer() {
         <a href={SITE.TH_URL} target="_blank" rel="noreferrer" style={linkStyle}>
           Threads
         </a>
+        <a href={SITE.DC_URL} target="_blank" rel="noreferrer" style={linkStyle}>
+          Discord
+        </a>
       </div>
       <div className="site-footer-credit" style={{ opacity: 0.6 }}>
         Feito com amor (e Codex) por Ludmila Lopes &#x1FA77;

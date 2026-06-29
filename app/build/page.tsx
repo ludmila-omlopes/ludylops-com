@@ -24,6 +24,11 @@ const ITEMS = [
     href: "https://ludylops.live",
   },
   {
+    t: "filazo.app",
+    d: "Biblioteca de jogos para reunir listas de diferentes fontes e facilitar a escolha do que jogar depois.",
+    href: "https://filazo.app",
+  },
+  {
     t: "YouTube Analyzer MCP",
     d: "MCP local com Gemini para analisar vídeos do YouTube.",
     href: "https://github.com/ludmila-omlopes/youtube-video-analyzer-mcp",
