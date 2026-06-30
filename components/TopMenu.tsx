@@ -7,6 +7,7 @@ import { SITE } from "@/lib/site";
 const ITEMS: Array<[string, string]> = [
   ["/stream", "Lives"],
   ["/build", "Projetos"],
+  ["/servicos", "Serviços"],
   ["/blog", "Blog"],
 ];
 

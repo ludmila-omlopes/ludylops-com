@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ProjectList } from "@/components/ProjectList";
+import { PROJECTS } from "@/lib/projects";
 
 const BUILD_DESCRIPTION =
   "Projetos open source da Ludmila para lives, automações, análise de vídeos, ferramentas web e experimentos.";
@@ -16,44 +18,6 @@ export const metadata: Metadata = {
     description: BUILD_DESCRIPTION,
   },
 };
-
-const ITEMS = [
-  {
-    t: "ludylops.live",
-    d: "Interaja com minha live, sugira jogos, mande quotes pra tela e mais! Integrado com streamerbot e OBS.",
-    href: "https://ludylops.live",
-  },
-  {
-    t: "filazo.app",
-    d: "Biblioteca de jogos para reunir listas de diferentes fontes e facilitar a escolha do que jogar depois.",
-    href: "https://filazo.app",
-  },
-  {
-    t: "YouTube Analyzer MCP",
-    d: "MCP local com Gemini para analisar vídeos do YouTube.",
-    href: "https://github.com/ludmila-omlopes/youtube-video-analyzer-mcp",
-  },
-  {
-    t: "Video Timeline Copilot",
-    d: "Ferramenta para gerar timelines editaveis a partir de videos usando transcricao e IA.",
-    href: "https://github.com/ludmila-omlopes/video-timeline-copilot",
-  },
-  {
-    t: "Talk to the Other Side",
-    d: "Tradutor Estrangeiro <-> português para fãs de Ordem Paranormal RPG.",
-    href: "https://other-side-nine.vercel.app/",
-  },
-  {
-    t: "Lens Agora",
-    d: "Um marketplace social na web3. Atualmente sendo migrado e repensado.",
-    href: "https://lensagora.xyz",
-  },
-  {
-    t: "ludylops.com",
-    d: "Este site. Tudo o que eu crio, jogo e quebro.",
-    href: "#",
-  },
-];
 
 export default function BuildPage() {
   const fg = "var(--fg)";
@@ -78,41 +42,8 @@ export default function BuildPage() {
           mundo. Está tudo no GitHub.
         </p>
       </section>
-      <section style={{ borderTop: `1px solid ${fg}`, marginTop: 24 }}>
-        {ITEMS.map((p, i) => (
-          <a
-            className="project-row"
-            key={i}
-            href={p.href}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "minmax(0, 1fr) 320px 60px",
-              gap: 28,
-              alignItems: "center",
-              padding: "32px 40px",
-              borderBottom: `1px solid ${fg}`,
-              textDecoration: "none",
-              color: fg,
-            }}
-          >
-            <span
-              className="project-title"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(40px, 4vw, 56px)",
-                fontWeight: 800,
-                lineHeight: 1,
-                letterSpacing: "-0.03em",
-              }}
-            >
-              {p.t}
-            </span>
-            <span className="project-description" style={{ fontSize: 15, opacity: 0.75 }}>{p.d}</span>
-            <span style={{ textAlign: "right", fontSize: 22 }}>↗</span>
-          </a>
-        ))}
+      <section style={{ marginTop: 24 }}>
+        <ProjectList projects={PROJECTS} ariaLabel="Projetos open source" />
       </section>
     </main>
   );

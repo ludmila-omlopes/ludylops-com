@@ -104,7 +104,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* THE THREE */}
+      {/* MAIN AREAS */}
       <section style={{ borderTop: "1px solid var(--fg)", marginTop: 30 }}>
         {[
           {
@@ -122,8 +122,15 @@ export default function HomePage() {
             meta: "5 repositórios · MIT",
           },
           {
-            id: "/blog",
+            id: "/servicos",
             n: "03",
+            k: "Tecnologia para quem trabalha criando.",
+            d: "Eu ajudo criadores, artistas e pequenos negócios a organizar processos, automatizar tarefas e construir ferramentas adaptadas ao seu jeito de trabalhar. Posso atuar desde o diagnóstico de um fluxo até a criação de uma automação, integração ou sistema próprio.",
+            meta: "Ver serviços",
+          },
+          {
+            id: "/blog",
+            n: "04",
             k: "Blog.",
             d: "Textos que ainda vou escrever sobre tech, jogos e experimentos.",
             meta: "rascunhos",
