@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getBlogPosts } from "@/lib/blog-posts";
 import { SITE } from "@/lib/site";
 
-const staticRoutes = ["", "/blog", "/stream", "/build", "/tinker"];
+const staticRoutes = ["", "/blog", "/stream", "/build", "/servicos", "/tinker"];
 
 function toLastModified(date: string) {
   const parsed = new Date(`${date}T00:00:00.000Z`);
