@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     title: "Lab de hardware e experimentos | Ludmila",
     description: TINKER_DESCRIPTION,
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 const LABEL_STYLE = {
