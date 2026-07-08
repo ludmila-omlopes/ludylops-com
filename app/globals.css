@@ -560,20 +560,6 @@ button {
   padding: 48px 40px 42px;
 }
 
-.services-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.services-section-mark {
-  width: 28px;
-  height: 12px;
-  flex: 0 0 auto;
-  opacity: 0.9;
-}
-
 .services-hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.65fr);
@@ -642,10 +628,6 @@ button {
 }
 
 .services-section-heading {
-  display: grid;
-  grid-template-columns: 240px minmax(0, 760px);
-  gap: 40px;
-  align-items: start;
   margin-bottom: 26px;
 }
 
@@ -687,6 +669,10 @@ button {
   border-bottom: 1px solid color-mix(in srgb, var(--fg) 34%, transparent);
 }
 
+.services-row:last-child {
+  border-bottom: none;
+}
+
 .services-row-number {
   font-size: 15px;
   opacity: 0.55;
@@ -715,14 +701,20 @@ button {
 .services-help-panel {
   min-height: 138px;
   display: grid;
-  place-items: center;
+  align-content: center;
+  padding-left: 28px;
   border-left: 1px solid color-mix(in srgb, var(--fg) 16%, transparent);
 }
 
-.services-help-visual {
-  width: min(100%, 180px);
-  height: auto;
-  color: color-mix(in srgb, var(--fg) 88%, transparent);
+.services-help-examples {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.45;
+  opacity: 0.82;
+  list-style: square;
 }
 
 .services-format-deliverables {
@@ -777,13 +769,6 @@ button {
   margin-right: -40px;
 }
 
-.services-process {
-  display: grid;
-  grid-template-columns: 240px minmax(0, 720px);
-  gap: 40px;
-  align-items: start;
-}
-
 .services-process-copy {
   display: grid;
   gap: 18px;
@@ -795,6 +780,7 @@ button {
 
 .services-process-body {
   min-width: 0;
+  max-width: 760px;
 }
 
 .services-contact {
@@ -803,6 +789,8 @@ button {
   gap: 54px;
   align-items: start;
   padding-bottom: 60px;
+  /* projects list already draws a full-width rule above; avoid a doubled divider */
+  border-top: none;
 }
 
 .services-contact-copy {
@@ -810,24 +798,6 @@ button {
   font-size: 17px;
   line-height: 1.55;
   opacity: 0.86;
-}
-
-.services-contact-link {
-  margin-top: 24px;
-  background: var(--fg);
-  color: var(--bg);
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 12px 18px;
-  font-size: 15px;
-  font-weight: 800;
-  text-decoration: none;
-  transition: transform 180ms ease;
-}
-
-.services-contact-link:hover {
-  transform: translateY(-2px);
 }
 
 .services-email-link {
@@ -1056,7 +1026,7 @@ button {
     border-left: 0;
     border-top: 1px solid color-mix(in srgb, var(--fg) 16%, transparent);
     padding-top: 18px;
-    justify-content: start;
+    padding-left: 0;
   }
 
   .services-format-title {
@@ -1292,10 +1262,6 @@ button {
     gap: 12px;
   }
 
-  .services-eyebrow {
-    gap: 8px;
-  }
-
   .services-hero-mark .services-format-mark {
     width: 22px;
     height: 22px;
@@ -1353,17 +1319,8 @@ button {
     padding-top: 14px;
   }
 
-  .services-help-visual {
-    width: min(100%, 148px);
-  }
-
   .services-contact {
     padding-bottom: 46px;
-  }
-
-  .services-contact-link {
-    width: 100%;
-    justify-content: center;
   }
 
   .services-email-link {

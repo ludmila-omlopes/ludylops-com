@@ -2,6 +2,7 @@
 import { GlitchVerb } from "@/components/GlitchVerb";
 import { SITE } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
+import { getListedBlogPosts } from "@/lib/blog-posts";
 
 const LABEL_STYLE = {
   fontSize: 13,
@@ -12,6 +13,7 @@ const LABEL_STYLE = {
 };
 
 export default function HomePage() {
+  const postCount = getListedBlogPosts().length;
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -49,7 +51,7 @@ export default function HomePage() {
           }}
         >
           <div>
-            <div style={{ ...LABEL_STYLE, marginBottom: 20 }}>Oi, eu sou a Ludmila —</div>
+            <div style={{ ...LABEL_STYLE, marginBottom: 20 }}>Oi, eu sou a Ludmila</div>
             <h1
               className="home-title"
               style={{
@@ -118,22 +120,22 @@ export default function HomePage() {
             id: "/build",
             n: "02",
             k: "Projetos.",
-            d: "Ferramentas open source para a minha live — e algumas para todo mundo.",
+            d: "Ferramentas open source para a minha live, e algumas para todo mundo.",
             meta: "5 repositórios · MIT",
           },
           {
             id: "/servicos",
             n: "03",
-            k: "Tecnologia para quem trabalha criando.",
-            d: "Eu ajudo criadores, artistas e pequenos negócios a organizar processos, automatizar tarefas e construir ferramentas adaptadas ao seu jeito de trabalhar. Posso atuar desde o diagnóstico de um fluxo até a criação de uma automação, integração ou sistema próprio.",
+            k: "Serviços.",
+            d: "Automação, IA e sistemas sob medida pra quem cria. Menos trabalho chato, mais tempo criando.",
             meta: "Ver serviços",
           },
           {
             id: "/blog",
             n: "04",
             k: "Blog.",
-            d: "Textos que ainda vou escrever sobre tech, jogos e experimentos.",
-            meta: "rascunhos",
+            d: "Textos sobre tech, jogos, IA e experimentos.",
+            meta: `${postCount} textos`,
           },
         ].map((s) => (
           <Link
