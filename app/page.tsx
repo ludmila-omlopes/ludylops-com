@@ -24,6 +24,7 @@ export default function HomePage() {
     image: `${SITE.URL}/ludpfp.jpg`,
     jobTitle: "Desenvolvedora e criadora de conteúdo",
     description: SITE.DESCRIPTION,
+    knowsAbout: ["Criação de conteúdo", "YouTube", "Jogos", "Inteligência artificial", "Automação", "Desenvolvimento web"],
     sameAs: [SITE.YT_LUDYLOPS_URL, SITE.YT_GAMES_URL, SITE.GH_URL, SITE.X_URL, SITE.TH_URL, SITE.DC_URL],
   };
 

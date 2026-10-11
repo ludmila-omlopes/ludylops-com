@@ -27,10 +27,12 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+const DEFAULT_TITLE = "Ludmila | Criadora no YouTube, dev de IA e automação";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.URL),
   title: {
-    default: "Ludmila | Dev, streamer e criadora open source",
+    default: DEFAULT_TITLE,
     template: "%s | Ludmila",
   },
   description: SITE.DESCRIPTION,
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     url: SITE.URL,
     siteName: SITE.NAME,
-    title: "Ludmila | Dev, streamer e criadora open source",
+    title: DEFAULT_TITLE,
     description: SITE.DESCRIPTION,
     images: [
       {
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ludmila | Dev, streamer e criadora open source",
+    title: DEFAULT_TITLE,
     description: SITE.DESCRIPTION,
     images: ["/ludpfp.jpg"],
     creator: "@ludylops",
