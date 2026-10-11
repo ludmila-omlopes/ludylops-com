@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { ProjectList } from "@/components/ProjectList";
+import { CHANNEL_STATS } from "@/lib/channel-stats";
 import { SERVICE_PROJECTS } from "@/lib/projects";
 import { SITE } from "@/lib/site";
 
@@ -144,6 +146,11 @@ export default function ServicesPage() {
               E quando a ferramenta que você precisa não existe, eu construo: sites, sistemas web e
               ferramentas internas sob medida para o seu jeito de trabalhar.
             </p>
+            <p className="services-proof">
+              Também sou criadora: mais de {CHANNEL_STATS.liveHours} horas de live e{" "}
+              {CHANNEL_STATS.views} visualizações nos meus{" "}
+              <Link href="/youtube">canais do YouTube</Link>.
+            </p>
           </div>
         </div>
       </section>
@@ -161,6 +168,13 @@ export default function ServicesPage() {
             <p>
               A melhor solução pode envolver IA, uma integração simples, uma regra determinística
               ou uma pequena ferramenta interna. O foco é encaixe no uso real.
+            </p>
+            <p>
+              Escrevi mais sobre esse jeito de olhar para IA em{" "}
+              <Link href="/blog/entre-a-euforia-e-o-cinismo-por-que-precisamos-testar-melhor-as-ias">
+                Entre a euforia e o cinismo
+              </Link>
+              .
             </p>
           </div>
         </div>
