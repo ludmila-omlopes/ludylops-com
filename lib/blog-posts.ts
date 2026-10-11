@@ -9,6 +9,7 @@ export type BlogPost = {
   date: string;
   coverImage?: string;
   keywords: string[];
+  topic?: string;
   lang: string;
   translationSlug?: string;
   content: string;
@@ -65,6 +66,7 @@ function readPost(filename: string): BlogPost {
     keywords: metadata.keywords
       ? metadata.keywords.split(",").map((keyword) => keyword.trim()).filter(Boolean)
       : [],
+    topic: metadata.topic?.trim() || undefined,
     lang: metadata.lang?.trim() || "pt-BR",
     translationSlug: metadata.translationSlug?.trim() || undefined,
     content,
@@ -89,6 +91,24 @@ export function getBlogPosts(): BlogPost[] {
 }
 
 export const DEFAULT_LANG = "pt-BR";
+
+// Order the blog index shows its groups in; posts without a known topic go last.
+export const BLOG_TOPICS = ["IA", "Jogos", "Cripto"] as const;
+const OTHER_TOPIC = "Outros";
+
+export function groupPostsByTopic<T extends Pick<BlogPost, "topic">>(posts: T[]): { topic: string; posts: T[] }[] {
+  const order: string[] = [...BLOG_TOPICS, OTHER_TOPIC];
+  const groups = new Map<string, T[]>(order.map((topic) => [topic, []]));
+
+  for (const post of posts) {
+    const topic = post.topic && groups.has(post.topic) ? post.topic : OTHER_TOPIC;
+    groups.get(topic)!.push(post);
+  }
+
+  return order
+    .map((topic) => ({ topic, posts: groups.get(topic)! }))
+    .filter((group) => group.posts.length > 0);
+}
 
 // Collapses translation pairs into a single listed entry, keeping the
 // default-language version (falling back to a deterministic slug order).

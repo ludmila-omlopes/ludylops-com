@@ -7,6 +7,7 @@ cover: /blog/entre-a-euforia-e-o-cinismo-por-que-precisamos-testar-melhor-as-ias
 keywords: IA, inteligência artificial, produtividade, liderança, tecnologia, trabalho, LLMs
 lang: pt-BR
 translationSlug: between-hype-and-cynicism-why-we-need-to-test-ai-better
+topic: IA
 ---
 
 # Entre a euforia e o cinismo: por que precisamos testar melhor as IAs

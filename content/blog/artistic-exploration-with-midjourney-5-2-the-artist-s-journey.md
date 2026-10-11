@@ -3,6 +3,7 @@ title: Artistic Exploration with Midjourney 5.2: The Artist's Journey
 excerpt: A walkthrough of a Midjourney 5.2 zoom-out experiment, from prompts and seasonal scenes to CapCut editing.
 status: publicado
 date: 2023-07-11
+topic: IA
 ---
 
 # Artistic Exploration with Midjourney 5.2: The Artist's Journey

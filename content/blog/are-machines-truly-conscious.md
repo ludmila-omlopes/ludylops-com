@@ -3,6 +3,7 @@ title: Are Machines Truly Conscious?
 excerpt: A short reflection on AI consciousness, the Turing Test, and John Searle's Chinese Room thought experiment.
 status: publicado
 date: 2023-05-10
+topic: IA
 ---
 
 # Are Machines Truly Conscious?
