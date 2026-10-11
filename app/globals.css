@@ -161,6 +161,27 @@ button {
   transition: filter 220ms ease, transform 220ms ease;
 }
 
+.stream-channel-hero {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 58px 40px 48px;
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 32%, transparent);
+}
+
+.stream-channel-hero-heading {
+  margin-bottom: 36px;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 24px 40px;
+  align-items: end;
+}
+
+/* The lede gets its own row so the label stays level with the title. */
+.stream-channel-hero-heading .stream-lede {
+  grid-column: 2;
+  margin: 0;
+}
+
 .stream-hero {
   max-width: 1400px;
   margin: 0 auto;
@@ -393,6 +414,69 @@ button {
   font-size: 17px;
   line-height: 1.45;
   opacity: 0.8;
+}
+
+.stream-channel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.stream-channel-card {
+  min-height: 230px;
+  padding: clamp(24px, 3vw, 42px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 36px;
+  color: var(--fg);
+  text-decoration: none;
+  background: color-mix(in srgb, var(--fg) 8%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--fg) 28%, transparent);
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.stream-channel-card:hover {
+  transform: translateY(-3px);
+  background: color-mix(in srgb, var(--fg) 14%, var(--bg));
+}
+
+.stream-channel-card span {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.7;
+}
+
+.stream-channel-card h2 {
+  margin: 16px 0 0;
+  font-size: clamp(38px, 5vw, 68px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.stream-channel-card > strong {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 15px;
+}
+
+.stream-channel-card > strong em {
+  font-size: 24px;
+  font-style: normal;
+}
+
+.stream-channel-card--games {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+
+.stream-channel-card--games:hover {
+  background: color-mix(in srgb, var(--fg) 90%, var(--bg));
 }
 
 .stream-vod-grid {
@@ -935,13 +1019,19 @@ button {
   }
 
   .stream-hero,
+  .stream-channel-hero-heading,
   .stream-start-here,
   .stream-section-heading,
   .stream-live-tools {
     grid-template-columns: 1fr;
   }
 
+  .stream-channel-hero-heading .stream-lede {
+    grid-column: auto;
+  }
+
   .stream-hero,
+  .stream-channel-hero,
   .stream-start-here,
   .stream-section,
   .stream-live-tools {
@@ -963,7 +1053,8 @@ button {
 
   .stream-vod-grid,
   .stream-series-grid,
-  .stream-shorts-grid {
+  .stream-shorts-grid,
+  .stream-channel-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1166,6 +1257,15 @@ button {
     padding: 32px 18px 30px;
   }
 
+  .stream-channel-hero {
+    padding: 32px 18px 30px;
+  }
+
+  .stream-channel-hero-heading {
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
   .stream-title {
     font-size: clamp(42px, 15vw, 66px);
     letter-spacing: -0.04em;
@@ -1240,7 +1340,8 @@ button {
 
   .stream-vod-grid,
   .stream-shorts-grid,
-  .stream-series-grid {
+  .stream-series-grid,
+  .stream-channel-grid {
     grid-template-columns: 1fr;
   }
 

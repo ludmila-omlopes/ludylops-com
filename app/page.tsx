@@ -22,7 +22,7 @@ export default function HomePage() {
     image: `${SITE.URL}/ludpfp.jpg`,
     jobTitle: "Desenvolvedora e criadora de conteúdo",
     description: SITE.DESCRIPTION,
-    sameAs: [SITE.YT_URL, SITE.GH_URL, SITE.X_URL, SITE.TH_URL, SITE.DC_URL],
+    sameAs: [SITE.YT_LUDYLOPS_URL, SITE.YT_GAMES_URL, SITE.GH_URL, SITE.X_URL, SITE.TH_URL, SITE.DC_URL],
   };
 
   return (
@@ -110,11 +110,11 @@ export default function HomePage() {
       <section style={{ borderTop: "1px solid var(--fg)", marginTop: 30 }}>
         {[
           {
-            id: "/stream",
+            id: "/youtube",
             n: "01",
-            k: "Lives.",
-            d: "Ao vivo no YouTube. Puzzles, metroidvanias e histórias longas.",
-            meta: "247 vods · 1.204 h",
+            k: "YouTube.",
+            d: "Vídeos editados no Ludylops. Campanhas e lives no LudylopsGames.",
+            meta: "2 canais · vídeos e VODs",
           },
           {
             id: "/build",
