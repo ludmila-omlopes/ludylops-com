@@ -21,7 +21,7 @@ export function Footer() {
       }}
     >
       <div className="site-footer-links" style={{ display: "flex", gap: 20 }}>
-        <a href={SITE.YT_URL} target="_blank" rel="noreferrer" style={linkStyle}>
+        <a href={SITE.YT_LUDYLOPS_URL} target="_blank" rel="noreferrer" style={linkStyle}>
           YouTube
         </a>
         <a href={SITE.GH_URL} target="_blank" rel="noreferrer" style={linkStyle}>

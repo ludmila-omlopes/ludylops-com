@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BlogPostList } from "@/components/BlogPostList";
 import { JsonLd } from "@/components/JsonLd";
-import { getBlogPost, getListedBlogPosts } from "@/lib/blog-posts";
+import { getBlogPost, getListedBlogPosts, groupPostsByTopic } from "@/lib/blog-posts";
 import { SITE } from "@/lib/site";
 
 const BLOG_DESCRIPTION =
@@ -89,9 +89,14 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <section style={{ marginTop: 24 }}>
-        <BlogPostList posts={posts} />
-      </section>
+      {groupPostsByTopic(posts).map((group) => (
+        <section className="blog-topic" key={group.topic} aria-labelledby={`blog-topic-${group.topic}`}>
+          <h2 className="blog-topic-title" id={`blog-topic-${group.topic}`}>
+            {group.topic}.
+          </h2>
+          <BlogPostList posts={group.posts} />
+        </section>
+      ))}
     </main>
   );
 }

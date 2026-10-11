@@ -2,8 +2,9 @@ export const SITE = {
   NAME: "Ludmila",
   URL: "https://ludylops.com",
   DESCRIPTION:
-    "Dev curiosa, streamer e criadora open source. Faço ferramentas, experimento com tecnologia e compartilho jogos, ideias e projetos pelo caminho.",
-  YT_URL: "https://www.youtube.com/@ludylopsGames",
+    "Crio vídeos sobre jogos no YouTube e construo ferramentas com IA e automação para quem, como eu, vive de criar.",
+  YT_LUDYLOPS_URL: "https://www.youtube.com/@ludylops",
+  YT_GAMES_URL: "https://www.youtube.com/@ludylopsGames",
   GH_URL: "https://github.com/ludmila-omlopes",
   X_URL: "https://x.com/ludylops",
   TH_URL: "https://www.threads.com/@ludylops",

@@ -3,6 +3,7 @@ title: CZ e Sam: Entenda a história conturbada dos marajás da cripto e o fim d
 excerpt: De parceiros a nêmesis, descubra como o que parecia uma simples troca de farpas culminou e um dos maiores escândalos da história da cripto.
 status: publicado
 date: 2022-11-23
+topic: Cripto
 ---
 
 # CZ e Sam: Entenda a história conturbada dos marajás da cripto e o fim da FTX

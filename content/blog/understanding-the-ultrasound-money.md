@@ -3,6 +3,7 @@ title: Understanding the Ultrasound Money
 excerpt: A guided walkthrough of ultrasound.money, Ethereum issuance, burn, supply growth, and post-Merge ETH analytics.
 status: publicado
 date: 2023-05-12
+topic: Cripto
 ---
 
 # Understanding the Ultrasound Money

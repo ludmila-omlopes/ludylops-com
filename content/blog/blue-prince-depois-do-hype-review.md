@@ -3,6 +3,7 @@ title: Blue Prince Depois do Hype | Review de Quem Dissecou o Jogo por 210 Horas
 excerpt: Depois dos patches, das críticas e de fechar a história completa em live, Blue Prince continua sendo um dos jogos mais recompensadores que já joguei. Mas só se você aceitar jogar no ritmo dele.
 status: rascunho
 date: 2026-05-14
+topic: Jogos
 ---
 
 # Blue Prince Depois do Hype | Review de Quem Dissecou o Jogo por 210 Horas

@@ -3,6 +3,7 @@ title: Ethereum está perto do PoS
 excerpt: Saiba também o que aconteceu no hack de Solana e da Nomad bridge!
 status: publicado
 date: 2022-08-05
+topic: Cripto
 ---
 
 # Ethereum está perto do PoS

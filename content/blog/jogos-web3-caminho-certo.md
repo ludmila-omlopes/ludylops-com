@@ -3,6 +3,7 @@ title: Jogos na Web3 | Estamos no Caminho Certo?
 excerpt: Uma viagem pela historia dos games, modelos de monetizacao e o que o futuro pode guardar para GameFi.
 status: publicado
 date: 2023-02-03
+topic: Jogos
 ---
 
 # Jogos na Web3 | Estamos no Caminho Certo?

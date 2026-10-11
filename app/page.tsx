@@ -3,6 +3,8 @@ import { GlitchVerb } from "@/components/GlitchVerb";
 import { SITE } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { getListedBlogPosts } from "@/lib/blog-posts";
+import { CHANNEL_STATS } from "@/lib/channel-stats";
+import { PROJECTS } from "@/lib/projects";
 
 const LABEL_STYLE = {
   fontSize: 13,
@@ -22,7 +24,8 @@ export default function HomePage() {
     image: `${SITE.URL}/ludpfp.jpg`,
     jobTitle: "Desenvolvedora e criadora de conteúdo",
     description: SITE.DESCRIPTION,
-    sameAs: [SITE.YT_URL, SITE.GH_URL, SITE.X_URL, SITE.TH_URL, SITE.DC_URL],
+    knowsAbout: ["Criação de conteúdo", "YouTube", "Jogos", "Inteligência artificial", "Automação", "Desenvolvimento web"],
+    sameAs: [SITE.YT_LUDYLOPS_URL, SITE.YT_GAMES_URL, SITE.GH_URL, SITE.X_URL, SITE.TH_URL, SITE.DC_URL],
   };
 
   return (
@@ -64,7 +67,7 @@ export default function HomePage() {
               }}
             >
               <span style={{ display: "block" }}>
-                Eu <GlitchVerb words={["desenvolvo", "jogo", "analiso"]} />
+                Eu <GlitchVerb words={["crio", "desenvolvo", "automatizo", "jogo"]} />
               </span>
               <span style={{ display: "block" }}>coisas.</span>
             </h1>
@@ -72,9 +75,8 @@ export default function HomePage() {
 
           <div className="home-intro" style={{ marginTop: 40, maxWidth: 540 }}>
             <p style={{ margin: 0, fontSize: 19, lineHeight: 1.5 }}>
-              Gamer, desenvolvedora open-source, generalista tech. Extremamente curiosa, 
-              exploro IA, web3, e tudo que é novo e interessante. Gosto de resolver problemas.
-              E jogar jogos =D
+              Crio vídeos sobre jogos no YouTube e construo ferramentas com IA e automação para
+              quem, como eu, vive de criar.
             </p>
           </div>
         </div>
@@ -106,71 +108,76 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* MAIN AREAS */}
-      <section style={{ borderTop: "1px solid var(--fg)", marginTop: 30 }}>
+      {/* MAIN AREAS: the two things I do, then Agora and the blog */}
+      <section className="home-pillars">
         {[
           {
-            id: "/stream",
-            n: "01",
-            k: "Lives.",
-            d: "Ao vivo no YouTube. Puzzles, metroidvanias e histórias longas.",
-            meta: "247 vods · 1.204 h",
+            title: "Crio.",
+            links: [
+              {
+                href: "/youtube",
+                title: "YouTube",
+                description: "Vídeos editados no Ludylops. Campanhas e lives no LudylopsGames.",
+                meta: `2 canais · +${CHANNEL_STATS.liveHours} h de live`,
+              },
+            ],
           },
           {
-            id: "/build",
-            n: "02",
-            k: "Projetos.",
-            d: "Ferramentas open source para a minha live, e algumas para todo mundo.",
-            meta: "5 repositórios · MIT",
+            title: "Construo.",
+            links: [
+              {
+                href: "/servicos",
+                title: "Serviços",
+                description:
+                  "Automação, IA e sistemas sob medida pra quem cria. Menos trabalho chato, mais tempo criando.",
+                meta: "automação · IA · sites",
+              },
+              {
+                href: "/build",
+                title: "Projetos",
+                description: "Ferramentas open source para a minha live, e algumas para todo mundo.",
+                meta: `${PROJECTS.length} projetos · open source`,
+              },
+            ],
+          },
+        ].map((pillar) => (
+          <div className="home-pillar" key={pillar.title}>
+            <h2 className="home-pillar-title">{pillar.title}</h2>
+            <div className="home-pillar-links">
+              {pillar.links.map((link) => (
+                <Link className="home-pillar-link" key={link.href} href={link.href}>
+                  <span className="home-pillar-link-title">{link.title}</span>
+                  <span className="home-pillar-link-description">{link.description}</span>
+                  <span className="home-pillar-link-meta">
+                    {link.meta} <span aria-hidden>→</span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {[
+          {
+            href: "/agora",
+            title: "Agora.",
+            description: "O que estou jogando, gravando e construindo neste momento.",
+            meta: "atualiza sozinha",
           },
           {
-            id: "/servicos",
-            n: "03",
-            k: "Serviços.",
-            d: "Automação, IA e sistemas sob medida pra quem cria. Menos trabalho chato, mais tempo criando.",
-            meta: "Ver serviços",
-          },
-          {
-            id: "/blog",
-            n: "04",
-            k: "Blog.",
-            d: "Textos sobre tech, jogos, IA e experimentos.",
+            href: "/blog",
+            title: "Blog.",
+            description: "Textos sobre tech, jogos, IA e experimentos.",
             meta: `${postCount} textos`,
           },
-        ].map((s) => (
-          <Link
-            className="home-index-link"
-            key={s.n}
-            href={s.id}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "70px 1fr 240px 90px",
-              gap: 30,
-              alignItems: "center",
-              width: "100%",
-              padding: "30px 40px",
-              borderBottom: "1px solid var(--fg)",
-              color: "inherit",
-              textDecoration: "none",
-              textAlign: "left",
-            }}
-          >
-            <span className="home-index-number" style={{ fontSize: 15, opacity: 0.55 }}>{s.n}</span>
-            <span
-              className="home-index-title"
-              style={{
-                fontSize: "clamp(56px, 6vw, 88px)",
-                fontWeight: 800,
-                fontFamily: "var(--font-display)",
-                lineHeight: 1,
-                letterSpacing: "-0.04em",
-              }}
-            >
-              {s.k}
-            </span>
-            <span className="home-index-description" style={{ fontSize: 15, maxWidth: 260 }}>{s.d}</span>
-            <span className="home-index-meta" style={{ fontSize: 13, opacity: 0.55, textAlign: "right" }}>
-              {s.meta} <span style={{ marginLeft: 6 }}>→</span>
+        ].map((row) => (
+          <Link className="home-pillar home-pillar--minor" key={row.href} href={row.href}>
+            <span className="home-pillar-title">{row.title}</span>
+            <span className="home-pillar-link">
+              <span className="home-pillar-link-description">{row.description}</span>
+              <span className="home-pillar-link-meta">
+                {row.meta} <span aria-hidden>→</span>
+              </span>
             </span>
           </Link>
         ))}

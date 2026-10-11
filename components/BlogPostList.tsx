@@ -46,7 +46,7 @@ export function BlogPostList({ posts }: BlogPostListProps) {
             {String(index + 1).padStart(2, "0")}
           </span>
           <div>
-            <h2
+            <h3
               className="blog-list-title"
               style={{
                 margin: 0,
@@ -58,7 +58,7 @@ export function BlogPostList({ posts }: BlogPostListProps) {
               }}
             >
               {post.title}
-            </h2>
+            </h3>
             <p className="blog-list-excerpt" style={{ margin: "12px 0 0", maxWidth: 680, fontSize: 16, opacity: 0.75 }}>
               {post.excerpt}
             </p>

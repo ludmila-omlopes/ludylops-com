@@ -161,6 +161,27 @@ button {
   transition: filter 220ms ease, transform 220ms ease;
 }
 
+.stream-channel-hero {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 58px 40px 48px;
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 32%, transparent);
+}
+
+.stream-channel-hero-heading {
+  margin-bottom: 36px;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 24px 40px;
+  align-items: end;
+}
+
+/* The lede gets its own row so the label stays level with the title. */
+.stream-channel-hero-heading .stream-lede {
+  grid-column: 2;
+  margin: 0;
+}
+
 .stream-hero {
   max-width: 1400px;
   margin: 0 auto;
@@ -395,6 +416,69 @@ button {
   opacity: 0.8;
 }
 
+.stream-channel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.stream-channel-card {
+  min-height: 230px;
+  padding: clamp(24px, 3vw, 42px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 36px;
+  color: var(--fg);
+  text-decoration: none;
+  background: color-mix(in srgb, var(--fg) 8%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--fg) 28%, transparent);
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.stream-channel-card:hover {
+  transform: translateY(-3px);
+  background: color-mix(in srgb, var(--fg) 14%, var(--bg));
+}
+
+.stream-channel-card span {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.7;
+}
+
+.stream-channel-card h2 {
+  margin: 16px 0 0;
+  font-size: clamp(38px, 5vw, 68px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.stream-channel-card > strong {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 15px;
+}
+
+.stream-channel-card > strong em {
+  font-size: 24px;
+  font-style: normal;
+}
+
+.stream-channel-card--games {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+
+.stream-channel-card--games:hover {
+  background: color-mix(in srgb, var(--fg) 90%, var(--bg));
+}
+
 .stream-vod-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -620,6 +704,16 @@ button {
   opacity: 0.86;
 }
 
+.services-proof {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.services-proof a,
+.services-process-copy a {
+  text-underline-offset: 4px;
+}
+
 .services-section {
   max-width: 1400px;
   margin: 48px auto 0;
@@ -809,6 +903,216 @@ button {
   text-underline-offset: 4px;
 }
 
+/* Home: two pillars (Crio / Construo), then a quieter blog row */
+
+.home-pillars {
+  margin-top: 30px;
+  border-top: 1px solid var(--fg);
+}
+
+.home-pillar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 64px;
+  align-items: start;
+  padding: 44px 40px;
+  border-bottom: 1px solid var(--fg);
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-pillar-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(64px, 8vw, 124px);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.home-pillar-links {
+  display: grid;
+}
+
+.home-pillar-link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 24px;
+  align-items: baseline;
+  padding: 22px 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-pillar-link:first-child {
+  padding-top: 6px;
+}
+
+.home-pillar-link:last-child {
+  padding-bottom: 0;
+}
+
+.home-pillar-link + .home-pillar-link {
+  border-top: 1px solid color-mix(in srgb, var(--fg) 28%, transparent);
+}
+
+.home-pillar-link-title {
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.6vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.home-pillar-link-description {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  max-width: 540px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.home-pillar-link-meta {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 13px;
+  opacity: 0.55;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.home-pillar-link:hover .home-pillar-link-title,
+.home-pillar--minor:hover .home-pillar-title {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
+}
+
+.home-pillar--minor {
+  align-items: baseline;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.home-pillar--minor .home-pillar-title {
+  font-size: clamp(40px, 4.4vw, 64px);
+  letter-spacing: -0.04em;
+}
+
+.home-pillar--minor .home-pillar-link {
+  padding: 0;
+}
+
+.home-pillar--minor .home-pillar-link-description {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* Blog index: one heading per topic */
+
+.blog-topic-title {
+  margin: 0;
+  padding: 56px 40px 22px;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 88px);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+/* Agora: what I'm playing, recording and building right now */
+
+.now-list {
+  margin-top: 24px;
+  border-top: 1px solid var(--fg);
+}
+
+.now-row {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 40px;
+  padding: 36px 40px;
+  border-bottom: 1px solid var(--fg);
+}
+
+.now-label {
+  margin: 0;
+  padding-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  opacity: 0.55;
+}
+
+.now-title {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.6vw, 52px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: inherit;
+  text-decoration: none;
+}
+
+a.now-title:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
+}
+
+.now-detail {
+  margin: 12px 0 0;
+  max-width: 680px;
+  font-size: 16px;
+  line-height: 1.5;
+  opacity: 0.75;
+}
+
+.now-detail a {
+  color: inherit;
+  text-underline-offset: 4px;
+}
+
+.now-repos {
+  display: grid;
+  gap: 26px;
+}
+
+.now-repos .now-title {
+  font-size: clamp(28px, 2.8vw, 40px);
+}
+
+@media (max-width: 980px) {
+  .blog-topic-title {
+    padding: 44px 24px 18px;
+  }
+
+  .now-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 30px 24px;
+  }
+
+  .now-label {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .blog-topic-title {
+    padding: 40px 18px 16px;
+    font-size: clamp(40px, 13vw, 56px);
+  }
+
+  .now-row {
+    padding: 26px 18px;
+  }
+}
+
 @media (max-width: 980px) {
   .site-header {
     padding: 16px 24px !important;
@@ -860,24 +1164,23 @@ button {
     aspect-ratio: 4 / 5 !important;
   }
 
-  .home-index-link {
-    grid-template-columns: 46px minmax(0, 1fr) !important;
-    gap: 14px 18px !important;
-    padding: 26px 24px !important;
+  .home-pillar {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 34px 24px;
   }
 
-  .home-index-title {
-    font-size: clamp(42px, 10vw, 70px) !important;
+  .home-pillar-title {
+    font-size: clamp(54px, 13vw, 92px);
   }
 
-  .home-index-description {
-    grid-column: 2 !important;
-    max-width: 620px !important;
+  .home-pillar--minor {
+    gap: 12px;
+    padding: 26px 24px;
   }
 
-  .home-index-meta {
-    grid-column: 2 !important;
-    text-align: left !important;
+  .home-pillar--minor .home-pillar-title {
+    font-size: clamp(40px, 10vw, 64px);
   }
 
   .simple-hero,
@@ -935,13 +1238,19 @@ button {
   }
 
   .stream-hero,
+  .stream-channel-hero-heading,
   .stream-start-here,
   .stream-section-heading,
   .stream-live-tools {
     grid-template-columns: 1fr;
   }
 
+  .stream-channel-hero-heading .stream-lede {
+    grid-column: auto;
+  }
+
   .stream-hero,
+  .stream-channel-hero,
   .stream-start-here,
   .stream-section,
   .stream-live-tools {
@@ -963,7 +1272,8 @@ button {
 
   .stream-vod-grid,
   .stream-series-grid,
-  .stream-shorts-grid {
+  .stream-shorts-grid,
+  .stream-channel-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1103,6 +1413,32 @@ button {
     margin-top: 0.02em;
   }
 
+  .home-pillar {
+    padding: 28px 18px;
+  }
+
+  .home-pillar--minor {
+    padding: 22px 18px;
+  }
+
+  .home-pillar-title {
+    font-size: clamp(46px, 16vw, 66px);
+  }
+
+  .home-pillar-link {
+    grid-template-columns: 1fr;
+  }
+
+  .home-pillar-link-meta {
+    grid-column: 1;
+    grid-row: 3;
+    text-align: left;
+  }
+
+  .home-pillar--minor .home-pillar-link-meta {
+    grid-row: 2;
+  }
+
   .home-intro p,
   .simple-lede,
   .post-excerpt {
@@ -1110,7 +1446,6 @@ button {
     line-height: 1.55 !important;
   }
 
-  .home-index-link,
   .project-row,
   .tinker-row,
   .blog-list-row {
@@ -1118,8 +1453,6 @@ button {
     padding: 22px 18px !important;
   }
 
-  .home-index-description,
-  .home-index-meta,
   .project-description,
   .tinker-description,
   .blog-list-row > div,
@@ -1128,7 +1461,6 @@ button {
     grid-column: auto !important;
   }
 
-  .home-index-title,
   .simple-title,
   .post-title {
     font-size: clamp(42px, 15vw, 62px) !important;
@@ -1164,6 +1496,15 @@ button {
 
   .stream-hero {
     padding: 32px 18px 30px;
+  }
+
+  .stream-channel-hero {
+    padding: 32px 18px 30px;
+  }
+
+  .stream-channel-hero-heading {
+    gap: 14px;
+    margin-bottom: 24px;
   }
 
   .stream-title {
@@ -1240,7 +1581,8 @@ button {
 
   .stream-vod-grid,
   .stream-shorts-grid,
-  .stream-series-grid {
+  .stream-series-grid,
+  .stream-channel-grid {
     grid-template-columns: 1fr;
   }
 
