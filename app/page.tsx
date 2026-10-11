@@ -108,7 +108,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* MAIN AREAS: the two things I do, then the blog */}
+      {/* MAIN AREAS: the two things I do, then Agora and the blog */}
       <section className="home-pillars">
         {[
           {
@@ -157,15 +157,30 @@ export default function HomePage() {
           </div>
         ))}
 
-        <Link className="home-pillar home-pillar--minor" href="/blog">
-          <span className="home-pillar-title">Blog.</span>
-          <span className="home-pillar-link">
-            <span className="home-pillar-link-description">Textos sobre tech, jogos, IA e experimentos.</span>
-            <span className="home-pillar-link-meta">
-              {postCount} textos <span aria-hidden>→</span>
+        {[
+          {
+            href: "/agora",
+            title: "Agora.",
+            description: "O que estou jogando, gravando e construindo neste momento.",
+            meta: "atualiza sozinha",
+          },
+          {
+            href: "/blog",
+            title: "Blog.",
+            description: "Textos sobre tech, jogos, IA e experimentos.",
+            meta: `${postCount} textos`,
+          },
+        ].map((row) => (
+          <Link className="home-pillar home-pillar--minor" key={row.href} href={row.href}>
+            <span className="home-pillar-title">{row.title}</span>
+            <span className="home-pillar-link">
+              <span className="home-pillar-link-description">{row.description}</span>
+              <span className="home-pillar-link-meta">
+                {row.meta} <span aria-hidden>→</span>
+              </span>
             </span>
-          </span>
-        </Link>
+          </Link>
+        ))}
       </section>
 
     </main>

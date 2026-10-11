@@ -23,6 +23,11 @@ export const OG_AREAS = {
     title: "Projetos.",
     text: "Ferramentas open source para a minha live, e algumas para todo mundo.",
   },
+  agora: {
+    path: "/agora",
+    title: "Agora.",
+    text: "O que estou jogando, gravando e construindo neste momento.",
+  },
   blog: {
     path: "/blog",
     title: "Blog.",
